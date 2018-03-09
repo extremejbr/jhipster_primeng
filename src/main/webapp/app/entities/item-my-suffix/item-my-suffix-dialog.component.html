@@ -1,0 +1,57 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myItemLabel" jhiTranslate="testeApp.item.home.createOrEditLabel">Create or edit a Item</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!item.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id" [(ngModel)]="item.id" readonly />
+        </div>
+        <div class="form-group">
+            <div class='ui-g-12 ui-fluid'>
+                <label jhiTranslate="testeApp.item.etiqueta" for="field_etiqueta">Etiqueta</label>
+                <p-inputMask type="text" mask="aa9999" name="etiqueta" id="field_etiqueta" [(ngModel)]="item.etiqueta"></p-inputMask>
+            </div>
+            <div class='form-group ui-g-12 ui-fluid'>
+                <label jhiTranslate="testeApp.item.descricao" for="field_descricao">Descrição</label>
+                <input pInputText type="text" name="descricao" id="field_descricao" [(ngModel)]="item.descricao"/>
+            </div>
+        </div>
+
+        <div class='form-group ui-g-12 ui-fluid'>
+            <label jhiTranslate="testeApp.item.dataAquisicao" for="field_dataAquisicao">Data Aquisicao</label>
+            <!-- <div class="input-group"> -->
+                    <p-calendar id="field_dataAquisicao" dateFormat="@yy-mm-dd" name="dataAquisicao" 
+                    [(ngModel)]="item.dataAquisicao"></p-calendar>
+                <!-- <input id="field_dataAquisicao" type="text" class="form-control" name="dataAquisicao" ngbDatepicker #dataAquisicaoDp="ngbDatepicker"
+                [(ngModel)]="item.dataAquisicao" />
+                <span class="input-group-append">
+                    <button type="button" class="btn btn-secondary" (click)="dataAquisicaoDp.toggle()">
+                        <i class="fa fa-calendar"></i>
+                    </button>
+                </span>
+            </div> -->
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="testeApp.item.departamento" for="field_departamento">Departamento</label>
+            <select class="form-control" id="field_departamento" name="departamento" [(ngModel)]="item.departamentoId">
+                <option [ngValue]="null"></option>
+                <option [ngValue]="departamentoOption.id" *ngFor="let departamentoOption of departamentos; trackBy: trackDepartamentoById">{{departamentoOption.id}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;
+            <span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;
+            <span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

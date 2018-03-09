@@ -1,0 +1,40 @@
+
+<div *ngIf="item">
+    <h2><span jhiTranslate="testeApp.item.detail.title">Item</span> {{item.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="testeApp.item.etiqueta">Etiqueta</span></dt>
+        <dd>
+            <span>{{item.etiqueta}}</span>
+        </dd>
+        <dt><span jhiTranslate="testeApp.item.descricao">Descricao</span></dt>
+        <dd>
+            <span>{{item.descricao}}</span>
+        </dd>
+        <dt><span jhiTranslate="testeApp.item.dataAquisicao">Data Aquisicao</span></dt>
+        <dd>
+            <span>{{item.dataAquisicao | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span jhiTranslate="testeApp.item.departamento">Departamento</span></dt>
+        <dd>
+            <div *ngIf="item.departamentoId">
+                <a [routerLink]="['/departamento-my-suffix', item.departamentoId]">{{item.departamentoId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'item-my-suffix/'+ item.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

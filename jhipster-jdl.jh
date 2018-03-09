@@ -1,0 +1,32 @@
+entity Item {
+	id Long,
+    etiqueta String,
+	descricao String,
+    dataAquisicao LocalDate
+}
+
+entity Departamento {
+	id Long,
+	nome String,
+    local String
+}
+
+entity Local {
+	id Long,
+	nome String
+}
+
+relationship OneToMany {
+	Departamento{id} to Item
+}
+
+
+paginate Item, Departamento with infinite-scroll
+paginate Item, Departamento with pagination
+
+dto * with mapstruct
+
+// Set service options to all except few
+service all with serviceImpl except Item, Departamento
+// Set an angular suffix
+angularSuffix * with mySuffix
